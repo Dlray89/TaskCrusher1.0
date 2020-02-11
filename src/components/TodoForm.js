@@ -56,7 +56,7 @@ class ToDoForm extends React.Component {
 
     setUpdate(text, key){
         const items = this.state.items;
-        items.map( item => {
+        items.map(item => {
             if(item.key === key){
                 item.text = text;
                 this.setState({
@@ -67,11 +67,14 @@ class ToDoForm extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="form">
             <header>
+            <label> TO DO LIST </label>
+
                 <form onSubmit={this.addItem}>
-                    <input  type="text" placeholder="Add task" value={this.state.currentItem.Text} onChange={this.handleInput}/>
-                    <button type="submit"> Add</button>
+                    <input className='textbox' type="text" placeholder="Add task" value={this.state.currentItem.Text} onChange={this.handleInput}/>
+                  
+                    <button type="submit">ADD TASK</button>
                 </form>
                 <ListItems items={this.state.items} deleteItems={this.deleteItems} setUpdate={this.setUpdate}></ListItems>
 

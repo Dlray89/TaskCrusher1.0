@@ -1,0 +1,49 @@
+body{
+    background: #0b8793; 
+    text-align: center;
+}
+
+label{
+    color: #bdc3c7;
+    margin: 10%;
+}
+.form{
+    background: linear-gradient(to top, #360033, #0b8793); 
+    padding: 3%;
+    width: 50%;
+    border: solid 1px #bdc3c7;
+    margin: 0 auto;
+    
+}
+
+.textbox{
+    background-color: #bdc3c7;
+    color: #360033;
+    border: solid 2px #bdc3c7;
+    padding: 1%;
+    margin-top: 3%;
+    margin-left: 15%;
+    width: 25%;
+    border-radius: 10px;
+    text-align: center;
+
+}
+
+.textbox2{
+    background: #360033;
+    border: solid 1px #bdc3c7;
+    color: #bdc3c7;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 3%;
+}
+button{
+    background-color:#360033 ;
+    border: solid 1px #bdc3c7;
+    padding: 1%;
+    margin: 0% 2%;
+    border-radius: 10px;
+
+    color:white
+}
