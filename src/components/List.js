@@ -1,5 +1,7 @@
 import React from "react";
-import {TextField, Button, withStyles} from "@material-ui/core"
+import {TextField, Button, withStyles, Avatar, Card} from "@material-ui/core"
+import DeleteIcon from '@material-ui/icons/Delete';
+import "./list.css"
 
 
 const styles = theme => ({
@@ -10,16 +12,27 @@ const styles = theme => ({
         color:"red",
         margin:"0% 0 3% 0"
     },
+    Avatar:{
+        margin:"0% auto",
+        marginBottom:"10%"
+    },
     taskCards:{
-        border:"solid 2px white",
+        border:"solid 1px black",
         textAlign:"center",
-        fontSize:"2rem",
-        width:"30%",
+        fontSize:"1.5rem",
+        width:"20%",
         margin:"2% auto",
-        padding:"3%",
+        padding:"1%",
         [theme.breakpoints.down("sm")]:{
-            width:"80%"
+            width:"30%",
+            fontSize:"0.9rem"
         }
+    },
+    taskContainer:{
+        display:"flex",
+        background:"inherit",
+        alignItem:"center",
+        textAlign:"center"
     }
 })
 
@@ -87,20 +100,21 @@ class List extends React.Component {
         <section>
           <TextField  type="text" variant="outlined" color="secondary" className={classes.input} label="Search..." onChange={this.handleChange}/>
         </section>
-        <div>
+        <Card className={classes.taskContainer}>
+       
           {this.state.filtered.map(item => (
-            <div className={classes.taskCards} key={item}>
+            <Card className={classes.taskCards} key={item}>
+             <Avatar className={classes.Avatar}>T</Avatar>
               {item} <br />
-              <Button
+              <DeleteIcon
                 className="delete"
                 variant="contained" 
                 onClick={() => this.props.delete(item)}
-              >
-                remove
-              </Button>
-            </div>
+              />
+             
+            </Card>
           ))}
-        </div>
+1        </Card>
       </div>
     );
   }

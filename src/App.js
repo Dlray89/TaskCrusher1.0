@@ -1,7 +1,9 @@
 import React from "react";
 import List from "./components/List"
 import Navbar from "./CompTools/navbar.js"
-import { TextField, Button, withStyles, Card, } from "@material-ui/core"
+import Header from "./images/header.jpg"
+import { TextField, Button, withStyles, Card } from "@material-ui/core"
+import "./App.css"
 
 
 const styles = theme => ({
@@ -16,6 +18,12 @@ const styles = theme => ({
         margin:"2% auto",
         padding:"2%",
         background:"linear-gradient(to right, #5f2c82, #49a09d)"
+    },
+    headerIMG:{
+        width:'100px',
+        [theme.breakpoints.down("sm")]: {
+            width:"40vw"
+        }
     }
 })
 
@@ -80,6 +88,10 @@ class App extends React.Component {
       const {classes} = this.props
     return (
         <div className={classes.main}>
+            
+            <header className='header'>
+           
+            </header>
             <Navbar />
       <Card className={classes.root}>
         <div>
