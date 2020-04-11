@@ -34,7 +34,8 @@ const styles = theme => ({
         display:"flex",
         background:"inherit",
         alignItem:"center",
-        textAlign:"center"
+        textAlign:"center",
+        flexWrap:"wrap"
     }
 })
 
