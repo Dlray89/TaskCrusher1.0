@@ -2,6 +2,7 @@ import React from "react";
 import {TextField, Button, withStyles, Avatar, Card} from "@material-ui/core"
 import DeleteIcon from '@material-ui/icons/Delete';
 import "./list.css"
+import { whitesmoke } from "color-name";
 
 
 const styles = theme => ({
@@ -10,6 +11,7 @@ const styles = theme => ({
     },
     input:{
         color:"red",
+        
         margin:"0% 0 3% 0"
     },
     Avatar:{
@@ -24,7 +26,7 @@ const styles = theme => ({
         margin:"2% auto",
         padding:"1%",
         [theme.breakpoints.down("sm")]:{
-            width:"30%",
+            width:"40%",
             fontSize:"0.9rem"
         }
     },
@@ -32,8 +34,7 @@ const styles = theme => ({
         display:"flex",
         background:"inherit",
         alignItem:"center",
-        textAlign:"center",
-        flexWrap:"wrap"
+        textAlign:"center"
     }
 })
 
@@ -115,7 +116,7 @@ class List extends React.Component {
              
             </Card>
           ))}
-1        </Card>
+      </Card>
       </div>
     );
   }
