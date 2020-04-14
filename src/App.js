@@ -8,7 +8,7 @@ import "./App.css"
 
 const styles = theme => ({
     main:{
-        background:"black",
+        background:"white",
         height:"100%",
         margin:"0"
     },
@@ -17,13 +17,20 @@ const styles = theme => ({
         width:"90%",
         margin:"2% auto",
         padding:"2%",
-        background:"linear-gradient(to right, #5f2c82, #49a09d)"
+        background:"#e4e5e6"
     },
     headerIMG:{
         width:'100px',
         [theme.breakpoints.down("sm")]: {
             width:"40vw"
         }
+    },
+    button:{
+        background:"linear-gradient(to top, #00416a, #e4e5e6)",
+        marginTop:"1.5%"
+    },
+    input:{
+        textAlign:"center"
     }
 })
 
@@ -78,8 +85,9 @@ class App extends React.Component {
       if (el === item) {
         //if item amtaches remove from the array
         list.splice(i, 1);
+        return true
       }
-      return true;
+
     });
     //set state to list
     this.setState({
@@ -108,11 +116,11 @@ class App extends React.Component {
               variant="outlined"
                 id="addInput"
                 type="text"
-                className="addinput"
+                className={classes.input}
                 label="Add something"
               />
               <br/>
-              <Button variant="contained" color="secondary" className="button is-info" onClick={this.addItem}>
+              <Button variant="contained" color="secondary" className={classes.button} onClick={this.addItem}>
                 Add Item
               </Button>
             </form>

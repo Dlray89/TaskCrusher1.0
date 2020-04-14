@@ -16,10 +16,14 @@ const styles = theme => ({
     },
     Avatar:{
         margin:"0% auto",
-        marginBottom:"10%"
+        marginBottom:"10%",
+        background:"linear-gradient(to top, #00416a, #e4e5e6)",
+        color:"#e4e5e6",
     },
     taskCards:{
         border:"solid 1px black",
+        background:"linear-gradient(to top, #00416a, #e4e5e6)",
+        color:"#e4e5e6",
         textAlign:"center",
         fontSize:"1.5rem",
         width:"20%",
@@ -121,7 +125,7 @@ class List extends React.Component {
           <TextField  type="text" variant="outlined" color="secondary" className={classes.input} label="Search..." onChange={this.handleChange} />
           <AO />
         </section>
-        <Card className={classes.taskContainer}>
+        <div className={classes.taskContainer}>
        
           {this.state.filtered.map(item => (
             <Card className={classes.taskCards} key={item}>
@@ -135,7 +139,7 @@ class List extends React.Component {
              
             </Card>
           ))}
-      </Card>
+      </div>
       </div>
     );
   }

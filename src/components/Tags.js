@@ -8,12 +8,17 @@ const Styles = theme => ({
     },
     Tags:{
         border:"solid 1px black",
+        background:"#E4E5E6",
+        color:"#00416A",
         width:"40%",
         display:"flex",
         justifyContent:"space-evenly",
         alignItems:"center",
         flexWrap:"wrap",
-        margin:"3% auto"
+        margin:"3% auto",
+        [theme.breakpoints.down("sm")]:{
+            width:"55%"            
+        }
     },
     cardContainer:{
         display:"flex",
@@ -79,7 +84,7 @@ class Tags extends React.Component {
                     ))}
 
                 </div>
-                <TextField label="Add tags....." required  type="text" onKeyDown={this.inputkeydown} ref={c => { this.tagInput = c; }} />
+                <TextField variant="outlined" color="secondary" label="Add tags...Hit Enter..." required  type="text" onKeyDown={this.inputkeydown} ref={c => { this.tagInput = c; }} />
             </div>
         )
 

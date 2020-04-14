@@ -21,6 +21,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
+  Panel:{
+      background:"linear-gradient(to top, #00416a, #e4e5e6);",
+      color:"#e4e5e6",
+      textAlign:"center"
+  },
+  Icon:{
+      color:"#e4e5e6"
+  }
 }));
 
 export default function SimpleExpansionPanel() {
@@ -28,9 +36,9 @@ export default function SimpleExpansionPanel() {
 
   return (
     <div className={classes.root}>
-      <ExpansionPanel>
+      <ExpansionPanel className={classes.Panel}>
         <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMoreIcon className={classes.Icon} />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
