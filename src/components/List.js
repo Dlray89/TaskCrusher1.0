@@ -122,7 +122,7 @@ class List extends React.Component {
     return (
       <div>
         <section>
-          <TextField  type="text" variant="outlined" color="secondary" className={classes.input} label="Search..." onChange={this.handleChange} />
+          <TextField  type="text" variant="outlined" color="primary" className={classes.input} label="Search..." onChange={this.handleChange} />
           <AO />
         </section>
         <div className={classes.taskContainer}>
