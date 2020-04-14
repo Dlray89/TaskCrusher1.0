@@ -78,8 +78,8 @@ class App extends React.Component {
       if (el === item) {
         //if item amtaches remove from the array
         list.splice(i, 1);
-        return true;
       }
+      return true;
     });
     //set state to list
     this.setState({
