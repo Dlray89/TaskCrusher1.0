@@ -1,7 +1,6 @@
 import React from "react";
 import List from "./components/List"
 import Navbar from "./CompTools/navbar.js"
-import Header from "./images/header.jpg"
 import { TextField, Button, withStyles, Card } from "@material-ui/core"
 import "./App.css"
 
@@ -31,11 +30,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [
-        "Work on search bar",
-        "Add filter feature in it",
-        "Practice building Search"
+      list:[
+          "Start a react project",
+          "Practice Javascript problems",
+          "Build a back-end using GRAPHQL",
+          "Go to the Movies"
       ]
+
+      
     };
     this.addItem = this.addItem.bind(this);
     this.remove = this.remove.bind(this)

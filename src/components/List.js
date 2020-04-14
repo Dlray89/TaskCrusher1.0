@@ -1,8 +1,8 @@
 import React from "react";
-import {TextField, Button, withStyles, Avatar, Card} from "@material-ui/core"
+import {TextField, withStyles, Avatar, Card} from "@material-ui/core"
 import DeleteIcon from '@material-ui/icons/Delete';
 import "./list.css"
-import { whitesmoke } from "color-name";
+import AO from "../CompTools/advanceOptions"
 
 
 const styles = theme => ({
@@ -36,6 +36,21 @@ const styles = theme => ({
         alignItem:"center",
         textAlign:"center",
         flexWrap:"wrap"
+    },
+    Tags:{
+        border:"solid 1px black",
+        width:"10%",
+        display:"flex",
+        flexWrap:"wrap",
+        padding:".5%",
+        justifyContent:"space-evenly",
+        alignItems:"center",
+        margin:"0 auto",
+        textAlign:"center",
+        [theme.breakpoints.down("sm")]: {
+            width:"23%",
+            margin:"0 auto"
+        }
     }
 })
 
@@ -45,7 +60,12 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filtered: []
+      filtered: [],
+      tags:[
+          "React",
+          "JavaScript",
+          "CSS"
+      ]
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -59,9 +79,11 @@ class List extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-    filtered: nextProps.items
+    filtered: nextProps.items,
   })
   }
+
+
 
 
  handleChange(e) {
@@ -101,14 +123,15 @@ class List extends React.Component {
     return (
       <div>
         <section>
-          <TextField  type="text" variant="outlined" color="secondary" className={classes.input} label="Search..." onChange={this.handleChange}/>
+          <TextField  type="text" variant="outlined" color="secondary" className={classes.input} label="Search..." onChange={this.handleChange} />
+          <AO />
         </section>
         <Card className={classes.taskContainer}>
        
           {this.state.filtered.map(item => (
             <Card className={classes.taskCards} key={item}>
              <Avatar className={classes.Avatar}>T</Avatar>
-              {item} <br />
+              <p>Task Name: <br /> {item}</p>
               <DeleteIcon
                 className="delete"
                 variant="contained" 
