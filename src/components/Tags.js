@@ -27,7 +27,11 @@ class Tags extends React.Component {
         super(props)
         this.state = {
             //setting tags state to an empty array
-            tags: []
+            tags:[
+          "React",
+          "JavaScript",
+          "CSS"
+      ]
         }
 
 

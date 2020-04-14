@@ -61,11 +61,6 @@ class List extends React.Component {
     super(props);
     this.state = {
       filtered: [],
-      tags:[
-          "React",
-          "JavaScript",
-          "CSS"
-      ]
     };
 
     this.handleChange = this.handleChange.bind(this);
