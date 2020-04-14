@@ -66,7 +66,7 @@ class Tags extends React.Component {
         const {classes} = this.props
         return (
             <div>
-                <ul className={classes.cardContainer}>
+                <div className={classes.cardContainer}>
                     {this.state.tags.map(tag => (
                         <Card className={classes.Tags} key={tag}>
                         {tag}
@@ -74,7 +74,7 @@ class Tags extends React.Component {
                         </Card>
                     ))}
 
-                </ul>
+                </div>
                 <TextField label="Add tags....." required  type="text" onKeyDown={this.inputkeydown} ref={c => { this.tagInput = c; }} />
             </div>
         )

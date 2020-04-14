@@ -37,10 +37,10 @@ export default function SimpleExpansionPanel() {
           <Typography className={classes.heading}>Advance Searching</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>
+          <div>
               Tags:
    <Tags />
-          </Typography>
+          </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       
