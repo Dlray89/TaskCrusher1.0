@@ -2,7 +2,8 @@
 # //datamodel.prisma defines my datamodel
 
 # //setup endpoint with Prisma
-endpoint: ''
+#endpoint: ''
+endpoint: https://us1.prisma.sh/david-979c00/taskbackend/dev
 
 # point file to the Prisma data model
 datamodel: datamodel.prisma

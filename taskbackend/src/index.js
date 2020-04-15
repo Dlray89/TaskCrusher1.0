@@ -1,47 +1,49 @@
 const { GraphQLServer } = require("graphql-yoga");
+const { prisma } = require("../prisma/src/generated/prisma.client")
+const Query = require("./resolvers/Query")
+const Mutation = require("./resolvers/Mutation")
+const Link = require("./resolvers/Link")
+const User = require("./resolvers/User")
 
 
 
-let Links = [{
-    id: 1,
-    url:"www.dapthedev.com",
-    description: "Dapper Dave tech site"
-},
-{
-    id:2,
-    url:"facebook.com",
-    description:"Social media"
-}]
+async function main(){
+prisma.$exists
 
-//generate new ids for links
-let idCount = Links.length
+//create a new link here
+    const newLink = await prisma.createLink({
+        url:'kjnknkl.com',
+        description: 'dslkmcdsklmzkds',
+    })
+    console.log(`Create new link: ${newLink.url} (ID:${newLink.id}) `)
 
-//2 implementation of the schema
+
+    //read all links here
+    const allLinks = await prisma.links()
+    console.log(allLinks)
+    main().catch(e => console.error(e))
+
+}
+
+
 const resolvers = {
-    Query:{
-        info: () => null,
-        feed: () => Links
-    },
-    //create new data using mutation
-    Mutation:{
-        post: (parent, args) => {
-            //create a new object of Link
-            const link = {
-                id:`link-${idCount}`,
-                description: args.description,
-                url: args.url,
-            }
-            //push new links into Links
-            Links.push(link)
-            return link
-        }
-    },
+    Query,
+    Mutation,
+    Link,
+    User
 
 }
 //start server and assign to GraphQLServer
 //assign typeDefs and resolvers
+//adding context to prisma
 const server = new GraphQLServer({
-    typeDefs:"./src/schema.graphql",
-    resolvers
+    typeDefs: "./src/schema.graphql",
+    resolvers,
+    context: request => {
+        return{
+            ...request,
+            prisma,
+        }
+    }
 })
 server.start(() => console.log(`server is running on localhost:4000`))
