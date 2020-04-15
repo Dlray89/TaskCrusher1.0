@@ -42,7 +42,13 @@ class App extends React.Component {
           "Start a react project",
           "Practice Javascript problems",
           "Build a back-end using GRAPHQL",
-          "Go to the Movies"
+          "Go to the Movies",
+      ],
+      tags:[
+          "React",
+          "Javascript",
+          "Node",
+          "Life"
       ]
 
       
@@ -107,7 +113,7 @@ class App extends React.Component {
       <Card className={classes.root}>
         <div>
           <section>
-            <List items={this.state.list} delete={this.remove} />
+            <List items={this.state.list} tag={this.state.tags} delete={this.remove} />
           </section>
           <hr />
           <section>
