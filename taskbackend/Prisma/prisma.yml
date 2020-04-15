@@ -1,0 +1,13 @@
+# //this is the main config for the prisma setup
+# //datamodel.prisma defines my datamodel
+
+# //setup endpoint with Prisma
+endpoint: ''
+
+# point file to the Prisma data model
+datamodel: datamodel.prisma
+
+# # Specifies language & location for the generated Prisma client
+generate:
+- generator: javascript-client
+  output: "./src/generated/prisma.client"

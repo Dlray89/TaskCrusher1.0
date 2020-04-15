@@ -1,89 +1,140 @@
-import React from 'react';
-import ToDoList from "./components/TodoComponents/TodoList";
-import ToDoForm from "./components/TodoComponents/TodoForm";
+import React from "react";
+import List from "./components/List"
+import Navbar from "./CompTools/navbar.js"
+
+import { TextField, Button, withStyles, Card } from "@material-ui/core"
+import "./App.css"
 
 
-const toDo = [
-  {
-    task: "Do react project",
-    id: 10,
-    completed: false 
-  },
-  {
-    task: "Do react project",
-    id: 20,
-    completed: false 
-  },
-  {
-    task: "Do react project",
-    id: 30,
-    completed: false 
-  },
-  {
-    task: "Do react project",
-    id: 40,
-    completed: false 
-  },
-]
+const styles = theme => ({
+    main:{
+        background:"white",
+        height:"100%",
+        margin:"0"
+    },
+    root:{
+        textAlign:"center",
+        width:"90%",
+        margin:"2% auto",
+        padding:"2%",
+        background:"#e4e5e6"
+    },
+    headerIMG:{
+        width:'100px',
+        [theme.breakpoints.down("sm")]: {
+            width:"40vw"
+        }
+    },
+    button:{
+        background:"linear-gradient(to top, #00416a, #e4e5e6)",
+        marginTop:"1.5%"
+    },
+    input:{
+        textAlign:"center"
+    }
+})
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      toDoList: toDo
-    }
+      list:[
+          "Start a react project",
+          "Practice Javascript problems",
+          "Build a back-end using GRAPHQL",
+          "Go to the Movies",
+      ],
+      tags:[
+          "React",
+          "Javascript",
+          "Node",
+          "Life"
+      ]
 
+      
+    };
+    this.addItem = this.addItem.bind(this);
+    this.remove = this.remove.bind(this)
   }
 
-  toggleTask = clickedId => {
+  addItem(e) {
+    e.preventDefault();
 
-    const newToDoList = this.state.toDoList.map(todo => {
+    //creating variables for our list
+    let list = this.state.list;
+    const newItem = document.getElementById("addInput");
+    const form = document.getElementById("addItemForm");
 
-      if( todo.id === clickedId ) {
+    //if the input has a value
+    if (newItem.value !== "") {
+      //add new items to the end og our list
+      list.push(newItem.value);
+      //then i use this to set the state
+      this.setState({
+        list: list
+      });
+      //reseting form
+      newItem.classList.remove("is-danger");
+      form.reset();
+    } else {
+      //if it doesmt have a value make the border red
+      newItem.classList.add("is-danger");
+    }
+  }
 
-        return {
-          ...todo,
-          completed: !todo.completed
-        };
+  remove(item) {
+    //put our list into an array
+    const list = this.state.list.slice();
 
-      }    else {
-        return todo
+    //check to see if items matches list items
+    list.some((el, i) => {
+      if (el === item) {
+        //if item amtaches remove from the array
+        list.splice(i, 1);
+        return true
       }
-    })
 
-    this.setState({
-      toDoList: newToDoList
-    })
-  };
-
-  addNewtask = itemTask => {
-    
-    const newTask = {
-      task: itemTask,
-      id: Date.now(),
-      completed: false
-    };
-
-    this.setState({
-      toDoList: [...this.state.toDoList, newTask]
     });
-  };
-
+    //set state to list
+    this.setState({
+      list: list
+    });
+  }
 
   render() {
-    console.log('rendering....')
+      const {classes} = this.props
     return (
-      <div className='app'>
-        <div className='header'>
-        <h2>To do list</h2>
-        <ToDoForm  addNewtask={this.addNewtask}/>
+        <div className={classes.main}>
+            
+            <header className='header'>
+           
+            </header>
+            <Navbar />
+      <Card className={classes.root}>
+        <div>
+          <section>
+            <List items={this.state.list} tag={this.state.tags} delete={this.remove} />
+          </section>
+          <hr />
+          <section>
+            <form className="ItemForm" id="addItemForm">
+              <TextField
+              variant="outlined"
+                id="addInput"
+                type="text"
+                className={classes.input}
+                label="Add something"
+              />
+              <br/>
+              <Button variant="contained" color="secondary" className={classes.button} onClick={this.addItem}>
+                Add Item
+              </Button>
+            </form>
+          </section>
         </div>
-        <ToDoList 
-        toDo={this.state.toDoList}
-        toggleTask={this.toggleTask} />
+      </Card>
       </div>
     );
   }
 }
-
-export default App;
+export default withStyles(styles, {withTheme:true})(App);
