@@ -3,7 +3,7 @@ function postedBy(parent, args, context) {
 }
 
 function votes(parent, args, context) {
-    return context.prisma.task({id: parent.id}).vote()
+    return context.prisma.task({id: parent.id}).votes()
 }
 
 module.exports = {

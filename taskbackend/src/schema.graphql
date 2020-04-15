@@ -41,5 +41,5 @@
 
     type Subscription {
         newTask: Task
-        newVote: Votes
+        newVote: Vote
     }

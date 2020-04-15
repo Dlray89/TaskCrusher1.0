@@ -5,7 +5,7 @@ const Mutation = require("./resolvers/Mutation")
 const Task = require("./resolvers/Task")
 const User = require("./resolvers/User")
 const Subscription = require("./resolvers/Subscription")
-const Votes = require("./resolvers/Votes")
+const Vote = require("./resolvers/Votes")
 
 
 
@@ -31,7 +31,7 @@ const resolvers = {
     Subscription,
     Task,
     User,
-    Votes,
+    Vote,
 
 }
 //start server and assign to GraphQLServer
