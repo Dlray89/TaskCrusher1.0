@@ -55,22 +55,24 @@ function post(parent,args,context,info) {
 
 async function vote(parent, args, context, info) {
 
-//1
+//here i will validate incoming jwt. if valid it will return the userID of the user
     const userId = getUserId(context)
 
-    //2
+    //expose all CRUD methods and generate one $exists function per model
+    //$exists taks a WHERE filter object that will allow me to specific certain condiditons about the elements of that type
+    //if the condition is met the $exists return true
     const voteExists = await context.prisma.$exists.vote({
         user: { id: userId},
-        link: { id: args.taskId },
+        task: { id: args.taskId },
     })
-    if (votedExists) {
+    if (voteExists) {
         throw new Error(`Already voted for task: ${args.taskId}`)
     }
 
-    //3
+    //if exist returns false createVote willbe used to create a new vote thats connect to user and task
     return context.prisma.createVote({
         user: { connect: { id: userId } },
-        task: { connect: {id: args.linkId } },
+        task: { connect: {id: args.taskId } },
     })
 }
 

@@ -29,6 +29,7 @@
         id: ID!
         task: Task!
         user: User!
+        postedBy: User
     }
     type Task {
         id: ID!

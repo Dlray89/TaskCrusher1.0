@@ -12,7 +12,7 @@ const Vote = require("./resolvers/Votes")
 async function main(){
 prisma.$exists
 
-//create a new link here
+//create a newtask here
     const newTask = await prisma.createTask({
         taskName:'kjnknkl.com',
         description: 'dslkmcdsklmzkds',

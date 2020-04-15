@@ -8,5 +8,5 @@ function votes(parent, args, context) {
 
 module.exports = {
     postedBy,
-    votes
+    votes,
 }
