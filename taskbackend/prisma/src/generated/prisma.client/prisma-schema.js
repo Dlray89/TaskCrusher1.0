@@ -11,6 +11,10 @@ type AggregateUser {
   count: Int!
 }
 
+type AggregateVote {
+  count: Int!
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -30,6 +34,11 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createVote(data: VoteCreateInput!): Vote!
+  updateVote(data: VoteUpdateInput!, where: VoteWhereUniqueInput!): Vote
+  upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
+  deleteVote(where: VoteWhereUniqueInput!): Vote
+  deleteManyVotes(where: VoteWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -56,12 +65,16 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  vote(where: VoteWhereUniqueInput!): Vote
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote]!
+  votesConnection(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VoteConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
   task(where: TaskSubscriptionWhereInput): TaskSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  vote(where: VoteSubscriptionWhereInput): VoteSubscriptionPayload
 }
 
 type Task {
@@ -69,6 +82,7 @@ type Task {
   description: String!
   taskName: String!
   postedBy: User
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
 type TaskConnection {
@@ -82,6 +96,7 @@ input TaskCreateInput {
   description: String!
   taskName: String!
   postedBy: UserCreateOneWithoutTasksInput
+  votes: VoteCreateManyWithoutTaskInput
 }
 
 input TaskCreateManyWithoutPostedByInput {
@@ -89,10 +104,23 @@ input TaskCreateManyWithoutPostedByInput {
   connect: [TaskWhereUniqueInput!]
 }
 
+input TaskCreateOneWithoutVotesInput {
+  create: TaskCreateWithoutVotesInput
+  connect: TaskWhereUniqueInput
+}
+
 input TaskCreateWithoutPostedByInput {
   id: ID
   description: String!
   taskName: String!
+  votes: VoteCreateManyWithoutTaskInput
+}
+
+input TaskCreateWithoutVotesInput {
+  id: ID
+  description: String!
+  taskName: String!
+  postedBy: UserCreateOneWithoutTasksInput
 }
 
 type TaskEdge {
@@ -185,6 +213,7 @@ input TaskUpdateInput {
   description: String
   taskName: String
   postedBy: UserUpdateOneWithoutTasksInput
+  votes: VoteUpdateManyWithoutTaskInput
 }
 
 input TaskUpdateManyDataInput {
@@ -214,14 +243,33 @@ input TaskUpdateManyWithWhereNestedInput {
   data: TaskUpdateManyDataInput!
 }
 
+input TaskUpdateOneRequiredWithoutVotesInput {
+  create: TaskCreateWithoutVotesInput
+  update: TaskUpdateWithoutVotesDataInput
+  upsert: TaskUpsertWithoutVotesInput
+  connect: TaskWhereUniqueInput
+}
+
 input TaskUpdateWithoutPostedByDataInput {
   description: String
   taskName: String
+  votes: VoteUpdateManyWithoutTaskInput
+}
+
+input TaskUpdateWithoutVotesDataInput {
+  description: String
+  taskName: String
+  postedBy: UserUpdateOneWithoutTasksInput
 }
 
 input TaskUpdateWithWhereUniqueWithoutPostedByInput {
   where: TaskWhereUniqueInput!
   data: TaskUpdateWithoutPostedByDataInput!
+}
+
+input TaskUpsertWithoutVotesInput {
+  update: TaskUpdateWithoutVotesDataInput!
+  create: TaskCreateWithoutVotesInput!
 }
 
 input TaskUpsertWithWhereUniqueWithoutPostedByInput {
@@ -274,6 +322,9 @@ input TaskWhereInput {
   taskName_ends_with: String
   taskName_not_ends_with: String
   postedBy: UserWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
   AND: [TaskWhereInput!]
   OR: [TaskWhereInput!]
   NOT: [TaskWhereInput!]
@@ -289,6 +340,7 @@ type User {
   email: String!
   password: String!
   tasks(where: TaskWhereInput, orderBy: TaskOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Task!]
+  votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
 type UserConnection {
@@ -303,10 +355,16 @@ input UserCreateInput {
   email: String!
   password: String!
   tasks: TaskCreateManyWithoutPostedByInput
+  votes: VoteCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutTasksInput {
   create: UserCreateWithoutTasksInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
   connect: UserWhereUniqueInput
 }
 
@@ -315,6 +373,15 @@ input UserCreateWithoutTasksInput {
   name: String!
   email: String!
   password: String!
+  votes: VoteCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutVotesInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  tasks: TaskCreateManyWithoutPostedByInput
 }
 
 type UserEdge {
@@ -363,6 +430,7 @@ input UserUpdateInput {
   email: String
   password: String
   tasks: TaskUpdateManyWithoutPostedByInput
+  votes: VoteUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -380,15 +448,37 @@ input UserUpdateOneWithoutTasksInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
+  update: UserUpdateWithoutVotesDataInput
+  upsert: UserUpsertWithoutVotesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateWithoutTasksDataInput {
   name: String
   email: String
   password: String
+  votes: VoteUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutVotesDataInput {
+  name: String
+  email: String
+  password: String
+  tasks: TaskUpdateManyWithoutPostedByInput
 }
 
 input UserUpsertWithoutTasksInput {
   update: UserUpdateWithoutTasksDataInput!
   create: UserCreateWithoutTasksInput!
+}
+
+input UserUpsertWithoutVotesInput {
+  update: UserUpdateWithoutVotesDataInput!
+  create: UserCreateWithoutVotesInput!
 }
 
 input UserWhereInput {
@@ -451,6 +541,9 @@ input UserWhereInput {
   tasks_every: TaskWhereInput
   tasks_some: TaskWhereInput
   tasks_none: TaskWhereInput
+  votes_every: VoteWhereInput
+  votes_some: VoteWhereInput
+  votes_none: VoteWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -459,6 +552,179 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type Vote {
+  id: ID!
+  task: Task!
+  user: User
+}
+
+type VoteConnection {
+  pageInfo: PageInfo!
+  edges: [VoteEdge]!
+  aggregate: AggregateVote!
+}
+
+input VoteCreateInput {
+  id: ID
+  task: TaskCreateOneWithoutVotesInput!
+  user: UserCreateOneWithoutVotesInput
+}
+
+input VoteCreateManyWithoutTaskInput {
+  create: [VoteCreateWithoutTaskInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateManyWithoutUserInput {
+  create: [VoteCreateWithoutUserInput!]
+  connect: [VoteWhereUniqueInput!]
+}
+
+input VoteCreateWithoutTaskInput {
+  id: ID
+  user: UserCreateOneWithoutVotesInput
+}
+
+input VoteCreateWithoutUserInput {
+  id: ID
+  task: TaskCreateOneWithoutVotesInput!
+}
+
+type VoteEdge {
+  node: Vote!
+  cursor: String!
+}
+
+enum VoteOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type VotePreviousValues {
+  id: ID!
+}
+
+input VoteScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  AND: [VoteScalarWhereInput!]
+  OR: [VoteScalarWhereInput!]
+  NOT: [VoteScalarWhereInput!]
+}
+
+type VoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Vote
+  updatedFields: [String!]
+  previousValues: VotePreviousValues
+}
+
+input VoteSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VoteWhereInput
+  AND: [VoteSubscriptionWhereInput!]
+  OR: [VoteSubscriptionWhereInput!]
+  NOT: [VoteSubscriptionWhereInput!]
+}
+
+input VoteUpdateInput {
+  task: TaskUpdateOneRequiredWithoutVotesInput
+  user: UserUpdateOneWithoutVotesInput
+}
+
+input VoteUpdateManyWithoutTaskInput {
+  create: [VoteCreateWithoutTaskInput!]
+  delete: [VoteWhereUniqueInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutTaskInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutTaskInput!]
+  deleteMany: [VoteScalarWhereInput!]
+}
+
+input VoteUpdateManyWithoutUserInput {
+  create: [VoteCreateWithoutUserInput!]
+  delete: [VoteWhereUniqueInput!]
+  connect: [VoteWhereUniqueInput!]
+  set: [VoteWhereUniqueInput!]
+  disconnect: [VoteWhereUniqueInput!]
+  update: [VoteUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [VoteUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [VoteScalarWhereInput!]
+}
+
+input VoteUpdateWithoutTaskDataInput {
+  user: UserUpdateOneWithoutVotesInput
+}
+
+input VoteUpdateWithoutUserDataInput {
+  task: TaskUpdateOneRequiredWithoutVotesInput
+}
+
+input VoteUpdateWithWhereUniqueWithoutTaskInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutTaskDataInput!
+}
+
+input VoteUpdateWithWhereUniqueWithoutUserInput {
+  where: VoteWhereUniqueInput!
+  data: VoteUpdateWithoutUserDataInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutTaskInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutTaskDataInput!
+  create: VoteCreateWithoutTaskInput!
+}
+
+input VoteUpsertWithWhereUniqueWithoutUserInput {
+  where: VoteWhereUniqueInput!
+  update: VoteUpdateWithoutUserDataInput!
+  create: VoteCreateWithoutUserInput!
+}
+
+input VoteWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  task: TaskWhereInput
+  user: UserWhereInput
+  AND: [VoteWhereInput!]
+  OR: [VoteWhereInput!]
+  NOT: [VoteWhereInput!]
+}
+
+input VoteWhereUniqueInput {
+  id: ID
 }
 `
       }

@@ -22,7 +22,13 @@
         post(taskName:String!, description:String!): Task!
         signup(email:String!, password:String!, name:String!): AuthPayload
         login(email:String!, password:String!): AuthPayload
+        vote(taskId: ID!): Vote
+    }
 
+    type Vote {
+        id: ID!
+        task: Task!
+        user: User!
     }
     type Task {
         id: ID!
@@ -30,4 +36,10 @@
         taskName: String!
         postedBy: User
         deletedTask(id: ID!): Task
+        votes: [Vote!]!
+    }
+
+    type Subscription {
+        newTask: Task
+        newVote: Votes
     }

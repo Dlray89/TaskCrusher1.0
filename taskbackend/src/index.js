@@ -4,6 +4,8 @@ const Query = require("./resolvers/Query")
 const Mutation = require("./resolvers/Mutation")
 const Task = require("./resolvers/Task")
 const User = require("./resolvers/User")
+const Subscription = require("./resolvers/Subscription")
+const Votes = require("./resolvers/Votes")
 
 
 
@@ -26,8 +28,10 @@ prisma.$exists
 const resolvers = {
     Query,
     Mutation,
+    Subscription,
     Task,
-    User
+    User,
+    Votes,
 
 }
 //start server and assign to GraphQLServer

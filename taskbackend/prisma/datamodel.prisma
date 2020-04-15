@@ -3,6 +3,7 @@ type Task {
         description: String!
         taskName: String!
         postedBy: User
+        votes: [Vote!]!
 
     }
 
@@ -12,5 +13,12 @@ type Task {
         email:String! @unique
         password: String!
         tasks: [Task!]!
+        votes: [Vote!]!
+    }
+
+    type Vote {
+        id: ID! @id
+        task: Task!
+        user: User
     }
 
