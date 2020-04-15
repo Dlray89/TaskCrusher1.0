@@ -1,5 +1,5 @@
  function feed(root, args, context, info) {
-            return context.prisma.links()
+            return context.prisma.tasks()
         }
 
         module.exports = {

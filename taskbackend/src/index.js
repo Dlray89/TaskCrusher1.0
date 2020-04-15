@@ -2,7 +2,7 @@ const { GraphQLServer } = require("graphql-yoga");
 const { prisma } = require("../prisma/src/generated/prisma.client")
 const Query = require("./resolvers/Query")
 const Mutation = require("./resolvers/Mutation")
-const Link = require("./resolvers/Link")
+const Task = require("./resolvers/Task")
 const User = require("./resolvers/User")
 
 
@@ -11,16 +11,13 @@ async function main(){
 prisma.$exists
 
 //create a new link here
-    const newLink = await prisma.createLink({
-        url:'kjnknkl.com',
+    const newTask = await prisma.createTask({
+        taskName:'kjnknkl.com',
         description: 'dslkmcdsklmzkds',
     })
-    console.log(`Create new link: ${newLink.url} (ID:${newLink.id}) `)
-
-
-    //read all links here
-    const allLinks = await prisma.links()
-    console.log(allLinks)
+    console.log(`Create new task: ${newTask.taskName} (ID:${newTask.id}`)
+    const allTasks = await prisma.tasks()
+    console.log(allTasks)
     main().catch(e => console.error(e))
 
 }
@@ -29,7 +26,7 @@ prisma.$exists
 const resolvers = {
     Query,
     Mutation,
-    Link,
+    Task,
     User
 
 }

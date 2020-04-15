@@ -2,8 +2,8 @@
     
     type Query {
         info: String!
-        feed:[Link]!
-        link(id: ID!): Link
+        feed:[Task]!
+        task(id: ID!): Task
     }
 
      type AuthPayload{
@@ -15,19 +15,19 @@
         id: ID!
         name: String!
         email: String!
-        links: [Link!]!
+        tasks: [Task!]!
     }
 
     type Mutation {
-        post(url:String!, description:String!): Link!
+        post(taskName:String!, description:String!): Task!
         signup(email:String!, password:String!, name:String!): AuthPayload
         login(email:String!, password:String!): AuthPayload
 
     }
-    type Link {
+    type Task {
         id: ID!
         description: String!
-        url: String!
+        taskName: String!
         postedBy: User
-        deletedLink(id: ID!): Link
+        deletedTask(id: ID!): Task
     }

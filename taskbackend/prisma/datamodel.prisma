@@ -1,7 +1,7 @@
-type Link {
+type Task {
         id: ID! @id
         description: String!
-        url: String!
+        taskName: String!
         postedBy: User
 
     }
@@ -11,6 +11,6 @@ type Link {
         name:String!
         email:String! @unique
         password: String!
-        links: [Link!]!
+        tasks: [Task!]!
     }
 

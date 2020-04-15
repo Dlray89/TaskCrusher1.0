@@ -16,7 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  link: (where?: LinkWhereInput) => Promise<boolean>;
+  task: (where?: TaskWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -39,25 +39,25 @@ export interface Prisma {
    * Queries
    */
 
-  link: (where: LinkWhereUniqueInput) => LinkNullablePromise;
-  links: (args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
+  task: (where: TaskWhereUniqueInput) => TaskNullablePromise;
+  tasks: (args?: {
+    where?: TaskWhereInput;
+    orderBy?: TaskOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Link>;
-  linksConnection: (args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
+  }) => FragmentableArray<Task>;
+  tasksConnection: (args?: {
+    where?: TaskWhereInput;
+    orderBy?: TaskOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => LinkConnectionPromise;
+  }) => TaskConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -83,22 +83,22 @@ export interface Prisma {
    * Mutations
    */
 
-  createLink: (data: LinkCreateInput) => LinkPromise;
-  updateLink: (args: {
-    data: LinkUpdateInput;
-    where: LinkWhereUniqueInput;
-  }) => LinkPromise;
-  updateManyLinks: (args: {
-    data: LinkUpdateManyMutationInput;
-    where?: LinkWhereInput;
+  createTask: (data: TaskCreateInput) => TaskPromise;
+  updateTask: (args: {
+    data: TaskUpdateInput;
+    where: TaskWhereUniqueInput;
+  }) => TaskPromise;
+  updateManyTasks: (args: {
+    data: TaskUpdateManyMutationInput;
+    where?: TaskWhereInput;
   }) => BatchPayloadPromise;
-  upsertLink: (args: {
-    where: LinkWhereUniqueInput;
-    create: LinkCreateInput;
-    update: LinkUpdateInput;
-  }) => LinkPromise;
-  deleteLink: (where: LinkWhereUniqueInput) => LinkPromise;
-  deleteManyLinks: (where?: LinkWhereInput) => BatchPayloadPromise;
+  upsertTask: (args: {
+    where: TaskWhereUniqueInput;
+    create: TaskCreateInput;
+    update: TaskUpdateInput;
+  }) => TaskPromise;
+  deleteTask: (where: TaskWhereUniqueInput) => TaskPromise;
+  deleteManyTasks: (where?: TaskWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -124,9 +124,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  link: (
-    where?: LinkSubscriptionWhereInput
-  ) => LinkSubscriptionPayloadSubscription;
+  task: (
+    where?: TaskSubscriptionWhereInput
+  ) => TaskSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -140,13 +140,13 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type LinkOrderByInput =
+export type TaskOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "description_ASC"
   | "description_DESC"
-  | "url_ASC"
-  | "url_DESC";
+  | "taskName_ASC"
+  | "taskName_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -160,11 +160,11 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type LinkWhereUniqueInput = AtLeastOne<{
+export type TaskWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface LinkWhereInput {
+export interface TaskWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -193,24 +193,24 @@ export interface LinkWhereInput {
   description_not_starts_with?: Maybe<String>;
   description_ends_with?: Maybe<String>;
   description_not_ends_with?: Maybe<String>;
-  url?: Maybe<String>;
-  url_not?: Maybe<String>;
-  url_in?: Maybe<String[] | String>;
-  url_not_in?: Maybe<String[] | String>;
-  url_lt?: Maybe<String>;
-  url_lte?: Maybe<String>;
-  url_gt?: Maybe<String>;
-  url_gte?: Maybe<String>;
-  url_contains?: Maybe<String>;
-  url_not_contains?: Maybe<String>;
-  url_starts_with?: Maybe<String>;
-  url_not_starts_with?: Maybe<String>;
-  url_ends_with?: Maybe<String>;
-  url_not_ends_with?: Maybe<String>;
+  taskName?: Maybe<String>;
+  taskName_not?: Maybe<String>;
+  taskName_in?: Maybe<String[] | String>;
+  taskName_not_in?: Maybe<String[] | String>;
+  taskName_lt?: Maybe<String>;
+  taskName_lte?: Maybe<String>;
+  taskName_gt?: Maybe<String>;
+  taskName_gte?: Maybe<String>;
+  taskName_contains?: Maybe<String>;
+  taskName_not_contains?: Maybe<String>;
+  taskName_starts_with?: Maybe<String>;
+  taskName_not_starts_with?: Maybe<String>;
+  taskName_ends_with?: Maybe<String>;
+  taskName_not_ends_with?: Maybe<String>;
   postedBy?: Maybe<UserWhereInput>;
-  AND?: Maybe<LinkWhereInput[] | LinkWhereInput>;
-  OR?: Maybe<LinkWhereInput[] | LinkWhereInput>;
-  NOT?: Maybe<LinkWhereInput[] | LinkWhereInput>;
+  AND?: Maybe<TaskWhereInput[] | TaskWhereInput>;
+  OR?: Maybe<TaskWhereInput[] | TaskWhereInput>;
+  NOT?: Maybe<TaskWhereInput[] | TaskWhereInput>;
 }
 
 export interface UserWhereInput {
@@ -270,9 +270,9 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
-  links_every?: Maybe<LinkWhereInput>;
-  links_some?: Maybe<LinkWhereInput>;
-  links_none?: Maybe<LinkWhereInput>;
+  tasks_every?: Maybe<TaskWhereInput>;
+  tasks_some?: Maybe<TaskWhereInput>;
+  tasks_none?: Maybe<TaskWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -283,54 +283,54 @@ export type UserWhereUniqueInput = AtLeastOne<{
   email?: Maybe<String>;
 }>;
 
-export interface LinkCreateInput {
+export interface TaskCreateInput {
   id?: Maybe<ID_Input>;
   description: String;
-  url: String;
-  postedBy?: Maybe<UserCreateOneWithoutLinksInput>;
+  taskName: String;
+  postedBy?: Maybe<UserCreateOneWithoutTasksInput>;
 }
 
-export interface UserCreateOneWithoutLinksInput {
-  create?: Maybe<UserCreateWithoutLinksInput>;
+export interface UserCreateOneWithoutTasksInput {
+  create?: Maybe<UserCreateWithoutTasksInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserCreateWithoutLinksInput {
+export interface UserCreateWithoutTasksInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
   password: String;
 }
 
-export interface LinkUpdateInput {
+export interface TaskUpdateInput {
   description?: Maybe<String>;
-  url?: Maybe<String>;
-  postedBy?: Maybe<UserUpdateOneWithoutLinksInput>;
+  taskName?: Maybe<String>;
+  postedBy?: Maybe<UserUpdateOneWithoutTasksInput>;
 }
 
-export interface UserUpdateOneWithoutLinksInput {
-  create?: Maybe<UserCreateWithoutLinksInput>;
-  update?: Maybe<UserUpdateWithoutLinksDataInput>;
-  upsert?: Maybe<UserUpsertWithoutLinksInput>;
+export interface UserUpdateOneWithoutTasksInput {
+  create?: Maybe<UserCreateWithoutTasksInput>;
+  update?: Maybe<UserUpdateWithoutTasksDataInput>;
+  upsert?: Maybe<UserUpsertWithoutTasksInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserUpdateWithoutLinksDataInput {
+export interface UserUpdateWithoutTasksDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
 }
 
-export interface UserUpsertWithoutLinksInput {
-  update: UserUpdateWithoutLinksDataInput;
-  create: UserCreateWithoutLinksInput;
+export interface UserUpsertWithoutTasksInput {
+  update: UserUpdateWithoutTasksDataInput;
+  create: UserCreateWithoutTasksInput;
 }
 
-export interface LinkUpdateManyMutationInput {
+export interface TaskUpdateManyMutationInput {
   description?: Maybe<String>;
-  url?: Maybe<String>;
+  taskName?: Maybe<String>;
 }
 
 export interface UserCreateInput {
@@ -338,68 +338,68 @@ export interface UserCreateInput {
   name: String;
   email: String;
   password: String;
-  links?: Maybe<LinkCreateManyWithoutPostedByInput>;
+  tasks?: Maybe<TaskCreateManyWithoutPostedByInput>;
 }
 
-export interface LinkCreateManyWithoutPostedByInput {
+export interface TaskCreateManyWithoutPostedByInput {
   create?: Maybe<
-    LinkCreateWithoutPostedByInput[] | LinkCreateWithoutPostedByInput
+    TaskCreateWithoutPostedByInput[] | TaskCreateWithoutPostedByInput
   >;
-  connect?: Maybe<LinkWhereUniqueInput[] | LinkWhereUniqueInput>;
+  connect?: Maybe<TaskWhereUniqueInput[] | TaskWhereUniqueInput>;
 }
 
-export interface LinkCreateWithoutPostedByInput {
+export interface TaskCreateWithoutPostedByInput {
   id?: Maybe<ID_Input>;
   description: String;
-  url: String;
+  taskName: String;
 }
 
 export interface UserUpdateInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
-  links?: Maybe<LinkUpdateManyWithoutPostedByInput>;
+  tasks?: Maybe<TaskUpdateManyWithoutPostedByInput>;
 }
 
-export interface LinkUpdateManyWithoutPostedByInput {
+export interface TaskUpdateManyWithoutPostedByInput {
   create?: Maybe<
-    LinkCreateWithoutPostedByInput[] | LinkCreateWithoutPostedByInput
+    TaskCreateWithoutPostedByInput[] | TaskCreateWithoutPostedByInput
   >;
-  delete?: Maybe<LinkWhereUniqueInput[] | LinkWhereUniqueInput>;
-  connect?: Maybe<LinkWhereUniqueInput[] | LinkWhereUniqueInput>;
-  set?: Maybe<LinkWhereUniqueInput[] | LinkWhereUniqueInput>;
-  disconnect?: Maybe<LinkWhereUniqueInput[] | LinkWhereUniqueInput>;
+  delete?: Maybe<TaskWhereUniqueInput[] | TaskWhereUniqueInput>;
+  connect?: Maybe<TaskWhereUniqueInput[] | TaskWhereUniqueInput>;
+  set?: Maybe<TaskWhereUniqueInput[] | TaskWhereUniqueInput>;
+  disconnect?: Maybe<TaskWhereUniqueInput[] | TaskWhereUniqueInput>;
   update?: Maybe<
-    | LinkUpdateWithWhereUniqueWithoutPostedByInput[]
-    | LinkUpdateWithWhereUniqueWithoutPostedByInput
+    | TaskUpdateWithWhereUniqueWithoutPostedByInput[]
+    | TaskUpdateWithWhereUniqueWithoutPostedByInput
   >;
   upsert?: Maybe<
-    | LinkUpsertWithWhereUniqueWithoutPostedByInput[]
-    | LinkUpsertWithWhereUniqueWithoutPostedByInput
+    | TaskUpsertWithWhereUniqueWithoutPostedByInput[]
+    | TaskUpsertWithWhereUniqueWithoutPostedByInput
   >;
-  deleteMany?: Maybe<LinkScalarWhereInput[] | LinkScalarWhereInput>;
+  deleteMany?: Maybe<TaskScalarWhereInput[] | TaskScalarWhereInput>;
   updateMany?: Maybe<
-    LinkUpdateManyWithWhereNestedInput[] | LinkUpdateManyWithWhereNestedInput
+    TaskUpdateManyWithWhereNestedInput[] | TaskUpdateManyWithWhereNestedInput
   >;
 }
 
-export interface LinkUpdateWithWhereUniqueWithoutPostedByInput {
-  where: LinkWhereUniqueInput;
-  data: LinkUpdateWithoutPostedByDataInput;
+export interface TaskUpdateWithWhereUniqueWithoutPostedByInput {
+  where: TaskWhereUniqueInput;
+  data: TaskUpdateWithoutPostedByDataInput;
 }
 
-export interface LinkUpdateWithoutPostedByDataInput {
+export interface TaskUpdateWithoutPostedByDataInput {
   description?: Maybe<String>;
-  url?: Maybe<String>;
+  taskName?: Maybe<String>;
 }
 
-export interface LinkUpsertWithWhereUniqueWithoutPostedByInput {
-  where: LinkWhereUniqueInput;
-  update: LinkUpdateWithoutPostedByDataInput;
-  create: LinkCreateWithoutPostedByInput;
+export interface TaskUpsertWithWhereUniqueWithoutPostedByInput {
+  where: TaskWhereUniqueInput;
+  update: TaskUpdateWithoutPostedByDataInput;
+  create: TaskCreateWithoutPostedByInput;
 }
 
-export interface LinkScalarWhereInput {
+export interface TaskScalarWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -428,33 +428,33 @@ export interface LinkScalarWhereInput {
   description_not_starts_with?: Maybe<String>;
   description_ends_with?: Maybe<String>;
   description_not_ends_with?: Maybe<String>;
-  url?: Maybe<String>;
-  url_not?: Maybe<String>;
-  url_in?: Maybe<String[] | String>;
-  url_not_in?: Maybe<String[] | String>;
-  url_lt?: Maybe<String>;
-  url_lte?: Maybe<String>;
-  url_gt?: Maybe<String>;
-  url_gte?: Maybe<String>;
-  url_contains?: Maybe<String>;
-  url_not_contains?: Maybe<String>;
-  url_starts_with?: Maybe<String>;
-  url_not_starts_with?: Maybe<String>;
-  url_ends_with?: Maybe<String>;
-  url_not_ends_with?: Maybe<String>;
-  AND?: Maybe<LinkScalarWhereInput[] | LinkScalarWhereInput>;
-  OR?: Maybe<LinkScalarWhereInput[] | LinkScalarWhereInput>;
-  NOT?: Maybe<LinkScalarWhereInput[] | LinkScalarWhereInput>;
+  taskName?: Maybe<String>;
+  taskName_not?: Maybe<String>;
+  taskName_in?: Maybe<String[] | String>;
+  taskName_not_in?: Maybe<String[] | String>;
+  taskName_lt?: Maybe<String>;
+  taskName_lte?: Maybe<String>;
+  taskName_gt?: Maybe<String>;
+  taskName_gte?: Maybe<String>;
+  taskName_contains?: Maybe<String>;
+  taskName_not_contains?: Maybe<String>;
+  taskName_starts_with?: Maybe<String>;
+  taskName_not_starts_with?: Maybe<String>;
+  taskName_ends_with?: Maybe<String>;
+  taskName_not_ends_with?: Maybe<String>;
+  AND?: Maybe<TaskScalarWhereInput[] | TaskScalarWhereInput>;
+  OR?: Maybe<TaskScalarWhereInput[] | TaskScalarWhereInput>;
+  NOT?: Maybe<TaskScalarWhereInput[] | TaskScalarWhereInput>;
 }
 
-export interface LinkUpdateManyWithWhereNestedInput {
-  where: LinkScalarWhereInput;
-  data: LinkUpdateManyDataInput;
+export interface TaskUpdateManyWithWhereNestedInput {
+  where: TaskScalarWhereInput;
+  data: TaskUpdateManyDataInput;
 }
 
-export interface LinkUpdateManyDataInput {
+export interface TaskUpdateManyDataInput {
   description?: Maybe<String>;
-  url?: Maybe<String>;
+  taskName?: Maybe<String>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -463,15 +463,15 @@ export interface UserUpdateManyMutationInput {
   password?: Maybe<String>;
 }
 
-export interface LinkSubscriptionWhereInput {
+export interface TaskSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<LinkWhereInput>;
-  AND?: Maybe<LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput>;
-  OR?: Maybe<LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput>;
-  NOT?: Maybe<LinkSubscriptionWhereInput[] | LinkSubscriptionWhereInput>;
+  node?: Maybe<TaskWhereInput>;
+  AND?: Maybe<TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput>;
+  OR?: Maybe<TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput>;
+  NOT?: Maybe<TaskSubscriptionWhereInput[] | TaskSubscriptionWhereInput>;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -489,34 +489,34 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface Link {
+export interface Task {
   id: ID_Output;
   description: String;
-  url: String;
+  taskName: String;
 }
 
-export interface LinkPromise extends Promise<Link>, Fragmentable {
+export interface TaskPromise extends Promise<Task>, Fragmentable {
   id: () => Promise<ID_Output>;
   description: () => Promise<String>;
-  url: () => Promise<String>;
+  taskName: () => Promise<String>;
   postedBy: <T = UserPromise>() => T;
 }
 
-export interface LinkSubscription
-  extends Promise<AsyncIterator<Link>>,
+export interface TaskSubscription
+  extends Promise<AsyncIterator<Task>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   description: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
+  taskName: () => Promise<AsyncIterator<String>>;
   postedBy: <T = UserSubscription>() => T;
 }
 
-export interface LinkNullablePromise
-  extends Promise<Link | null>,
+export interface TaskNullablePromise
+  extends Promise<Task | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   description: () => Promise<String>;
-  url: () => Promise<String>;
+  taskName: () => Promise<String>;
   postedBy: <T = UserPromise>() => T;
 }
 
@@ -532,9 +532,9 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   name: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
-  links: <T = FragmentableArray<Link>>(args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
+  tasks: <T = FragmentableArray<Task>>(args?: {
+    where?: TaskWhereInput;
+    orderBy?: TaskOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -550,9 +550,9 @@ export interface UserSubscription
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
-  links: <T = Promise<AsyncIterator<LinkSubscription>>>(args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
+  tasks: <T = Promise<AsyncIterator<TaskSubscription>>>(args?: {
+    where?: TaskWhereInput;
+    orderBy?: TaskOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -568,9 +568,9 @@ export interface UserNullablePromise
   name: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
-  links: <T = FragmentableArray<Link>>(args?: {
-    where?: LinkWhereInput;
-    orderBy?: LinkOrderByInput;
+  tasks: <T = FragmentableArray<Task>>(args?: {
+    where?: TaskWhereInput;
+    orderBy?: TaskOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -579,25 +579,25 @@ export interface UserNullablePromise
   }) => T;
 }
 
-export interface LinkConnection {
+export interface TaskConnection {
   pageInfo: PageInfo;
-  edges: LinkEdge[];
+  edges: TaskEdge[];
 }
 
-export interface LinkConnectionPromise
-  extends Promise<LinkConnection>,
+export interface TaskConnectionPromise
+  extends Promise<TaskConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<LinkEdge>>() => T;
-  aggregate: <T = AggregateLinkPromise>() => T;
+  edges: <T = FragmentableArray<TaskEdge>>() => T;
+  aggregate: <T = AggregateTaskPromise>() => T;
 }
 
-export interface LinkConnectionSubscription
-  extends Promise<AsyncIterator<LinkConnection>>,
+export interface TaskConnectionSubscription
+  extends Promise<AsyncIterator<TaskConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<LinkEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateLinkSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TaskEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTaskSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -623,35 +623,35 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface LinkEdge {
-  node: Link;
+export interface TaskEdge {
+  node: Task;
   cursor: String;
 }
 
-export interface LinkEdgePromise extends Promise<LinkEdge>, Fragmentable {
-  node: <T = LinkPromise>() => T;
+export interface TaskEdgePromise extends Promise<TaskEdge>, Fragmentable {
+  node: <T = TaskPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface LinkEdgeSubscription
-  extends Promise<AsyncIterator<LinkEdge>>,
+export interface TaskEdgeSubscription
+  extends Promise<AsyncIterator<TaskEdge>>,
     Fragmentable {
-  node: <T = LinkSubscription>() => T;
+  node: <T = TaskSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateLink {
+export interface AggregateTask {
   count: Int;
 }
 
-export interface AggregateLinkPromise
-  extends Promise<AggregateLink>,
+export interface AggregateTaskPromise
+  extends Promise<AggregateTask>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateLinkSubscription
-  extends Promise<AsyncIterator<AggregateLink>>,
+export interface AggregateTaskSubscription
+  extends Promise<AsyncIterator<AggregateTask>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -726,51 +726,51 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface LinkSubscriptionPayload {
+export interface TaskSubscriptionPayload {
   mutation: MutationType;
-  node: Link;
+  node: Task;
   updatedFields: String[];
-  previousValues: LinkPreviousValues;
+  previousValues: TaskPreviousValues;
 }
 
-export interface LinkSubscriptionPayloadPromise
-  extends Promise<LinkSubscriptionPayload>,
+export interface TaskSubscriptionPayloadPromise
+  extends Promise<TaskSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = LinkPromise>() => T;
+  node: <T = TaskPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = LinkPreviousValuesPromise>() => T;
+  previousValues: <T = TaskPreviousValuesPromise>() => T;
 }
 
-export interface LinkSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<LinkSubscriptionPayload>>,
+export interface TaskSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TaskSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = LinkSubscription>() => T;
+  node: <T = TaskSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = LinkPreviousValuesSubscription>() => T;
+  previousValues: <T = TaskPreviousValuesSubscription>() => T;
 }
 
-export interface LinkPreviousValues {
+export interface TaskPreviousValues {
   id: ID_Output;
   description: String;
-  url: String;
+  taskName: String;
 }
 
-export interface LinkPreviousValuesPromise
-  extends Promise<LinkPreviousValues>,
+export interface TaskPreviousValuesPromise
+  extends Promise<TaskPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   description: () => Promise<String>;
-  url: () => Promise<String>;
+  taskName: () => Promise<String>;
 }
 
-export interface LinkPreviousValuesSubscription
-  extends Promise<AsyncIterator<LinkPreviousValues>>,
+export interface TaskPreviousValuesSubscription
+  extends Promise<AsyncIterator<TaskPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   description: () => Promise<AsyncIterator<String>>;
-  url: () => Promise<AsyncIterator<String>>;
+  taskName: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayload {
@@ -852,7 +852,7 @@ export type Long = string;
 
 export const models: Model[] = [
   {
-    name: "Link",
+    name: "Task",
     embedded: false
   },
   {
