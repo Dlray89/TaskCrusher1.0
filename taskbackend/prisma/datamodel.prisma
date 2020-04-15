@@ -1,0 +1,24 @@
+type Task {
+        id: ID! @id
+        description: String!
+        taskName: String!
+        postedBy: User
+        votes: [Vote!]!
+
+    }
+
+    type User {
+        id: ID! @id
+        name:String!
+        email:String! @unique
+        password: String!
+        tasks: [Task!]!
+        votes: [Vote!]!
+    }
+
+    type Vote {
+        id: ID! @id
+        task: Task!
+        user: User
+    }
+
