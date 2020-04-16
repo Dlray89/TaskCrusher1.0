@@ -9,17 +9,25 @@ const Header = props => {
     return (
         <div>
             <div>
+                
                 <div> TaskCruncher </div>
                 <Link to="/">
                     New
              </Link>
+             <div>|</div>
+             <Link to="/search">Search</Link>
                 {isLoggedIn && (
                     <div>
                         <div>|</div>
                         <Link to="/create">
+
                             submit
              </Link>
+             <div>|</div>
+                        <Link to="/login">Login</Link>
+                        <div>|</div>
                     </div>
+
                 )}
             </div>
 

@@ -4,6 +4,7 @@ import TaskList from "./components/taskList"
 import Header from "./components/Header"
 import CreateTask from "./components/CreateTask"
 import Login from "./components/Login"
+import Search from "./components/search"
 
 
 const App = () => (
@@ -14,6 +15,7 @@ const App = () => (
                 <Route exact path="/" component={TaskList} />
                 <Route exact path="/create" component={CreateTask} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/search" component={Search} />
             </Switch>
         </div>
     </div>

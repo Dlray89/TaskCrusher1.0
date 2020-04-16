@@ -14,12 +14,6 @@ mutation PostMutation($taskName: String!, $description: String!) {
             id
             name
         }
-        votes {
-            id
-            user {
-                id
-            }
-        }
     }
 }
 `

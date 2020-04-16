@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from "react-router-dom"
+import { getToken } from "./token"
 import App from './App';
 import "./index.css";
 //graphql-urql
@@ -13,6 +14,12 @@ const cache = cacheExchange({})
 
 const client = new Client({
     url: "https://4000-a9def18d-5f33-4287-b2aa-1d5d3de6f77d.ws-us02.gitpod.io/",
+    fetchOptions: () => {
+        const token = getToken()
+        return {
+            headers: {authorization: token ? `Bearer ${token}` : ''}
+        }
+    },
     //replace defaultExchanges with a new list of exchanges that includes both normalized cache exchange
 
     exchanges: [dedupExchange, cache, fetchExchange]
