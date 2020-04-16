@@ -2,8 +2,13 @@
     
     type Query {
         info: String!
-        feed:[Task]!
+        feed(filter: String, skip: Int, first: Int, orderBy: TaskOrderByInput): Feed!
         task(id: ID!): Task
+    }
+
+    type Feed {
+        tasks: [Task!]!
+        count: Int!
     }
 
      type AuthPayload{
@@ -43,4 +48,13 @@
     type Subscription {
         newTask: Task
         newVote: Vote
+    }
+
+    enum TaskOrderByInput {
+        description_ASC
+        description_DESC
+        taskName_ASC
+        taskName_DESC
+        createdAt_ASC
+        createdAt_DESC
     }
