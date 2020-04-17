@@ -5,6 +5,7 @@ import Header from "./components/Header"
 import CreateTask from "./components/CreateTask"
 import Login from "./components/Login"
 import Search from "./components/search"
+import Welcome from "./components/welcome"
 
 
 const App = () => (
@@ -12,7 +13,8 @@ const App = () => (
         <Header />
         <div>
             <Switch>
-                <Route exact path="/" component={TaskList} />
+                <Route exact path="/" component={Welcome} />
+                <Route exact path="/home" component={TaskList} />
                 <Route exact path="/create" component={CreateTask} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/search" component={Search} />
